@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_cs_reg"
+        app:layout_constraintWidth_percent="0.9"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/id_item_payment_tv_title"
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textStyle="bold|italic"
+            android:text="Test Payment 1"
+            android:textSize="25sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.9"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_height="40dp"/>
+
+        <TextView
+            android:id="@+id/id_item_payment_tv_amount"
+            android:layout_width="0dp"
+            android:textStyle="italic"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="left|center"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/white"
+            android:text="amount : -"
+            android:textSize="20sp"
+            app:layout_constraintWidth_percent="0.7"
+            app:layout_constraintTop_toBottomOf="@id/id_item_payment_tv_title"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/id_item_payment_tv_created"
+            android:layout_width="0dp"
+            android:textStyle="italic"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="left|center"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/white"
+            android:text="created : -"
+            android:textSize="20sp"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintWidth_percent="0.7"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/id_item_payment_tv_amount"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:textStyle="italic"
+            android:layout_height="wrap_content"
+            android:gravity="left|center"
+            android:layout_marginLeft="5dp"
+            android:textColor="@color/white"
+            android:text="id : 1.0"
+            android:textSize="20sp"
+            android:id="@+id/id_item_payment_tv_id"
+            app:layout_constraintWidth_percent="0.2"
+            app:layout_constraintStart_toEndOf="@id/id_item_payment_tv_amount"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/id_item_payment_tv_amount"
+            app:layout_constraintBottom_toBottomOf="@id/id_item_payment_tv_created"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
