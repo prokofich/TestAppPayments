@@ -17,9 +17,9 @@ import com.example.testapppayments.viewmodel.PaymentsViewModel
 class PaymentsFragment : Fragment() {
 
     private var binding:FragmentPaymentsBinding? = null
-    private lateinit var paymentsViewModel: PaymentsViewModel
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var adapterPayments: PaymentsAdapter
+    private var paymentsViewModel: PaymentsViewModel? = null
+    private var recyclerView: RecyclerView? = null
+    private var adapterPayments: PaymentsAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,23 +36,23 @@ class PaymentsFragment : Fragment() {
 
         recyclerView = view.findViewById(R.id.id_payments_rv)
         adapterPayments = PaymentsAdapter()
-        recyclerView.adapter = adapterPayments
+        recyclerView?.adapter = adapterPayments
 
-        paymentsViewModel.getPayments(requireArguments().getString(TOKEN)!!) // отправка запроса на получение платежей
+        paymentsViewModel?.getPayments(requireArguments().getString(TOKEN)!!) // отправка запроса на получение платежей
 
         // выход из аккаунта
         binding!!.idPaymentsButtonExit.setOnClickListener {
-            paymentsViewModel.showExitDialog(requireContext())
+            paymentsViewModel?.showExitDialog(requireContext())
         }
 
         // выход из аккаунта
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner){
-            paymentsViewModel.showExitDialog(requireContext())
+            paymentsViewModel?.showExitDialog(requireContext())
         }
 
         // отправка полученных платежей в recyclerview
-        paymentsViewModel.payments.observe(viewLifecycleOwner){ data ->
-            adapterPayments.setList(data.body()!!.response)
+        paymentsViewModel?.payments?.observe(viewLifecycleOwner){ data ->
+            adapterPayments?.setList(data.body()!!.response)
         }
 
     }

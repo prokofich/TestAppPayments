@@ -33,7 +33,7 @@ class Repository {
     // функция получения токена
     fun getToken(context: Context):String{
         val sharedPreferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-        return sharedPreferences.getString(TOKEN,"")!!
+        return sharedPreferences.getString(TOKEN,"").toString()
     }
 
 }

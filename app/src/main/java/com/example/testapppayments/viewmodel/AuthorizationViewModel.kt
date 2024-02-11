@@ -48,7 +48,7 @@ class AuthorizationViewModel:ViewModel() {
     fun goToPaymentsFragment(token:String){
         val bundle = Bundle()
         bundle.putString(TOKEN,token)
-        MAIN.navController.navigate(R.id.action_authorizationFragment_to_paymentsFragment,bundle)
+        MAIN.navController?.navigate(R.id.action_authorizationFragment_to_paymentsFragment,bundle)
     }
 
     // проверка был ли выход из аккаунта
