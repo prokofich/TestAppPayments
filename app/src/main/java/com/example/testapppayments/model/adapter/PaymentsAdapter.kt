@@ -38,7 +38,7 @@ class PaymentsAdapter: RecyclerView.Adapter<PaymentsAdapter.PaymentsViewHolder>(
         if(listPayments[position]!!.amount!=null && listPayments[position]!!.amount!=""){
             amountPayment.text = "amount : ${listPayments[position]!!.amount}"
         }else{
-            amountPayment.text = "amount : -"
+            amountPayment.text = "amount: -"
         }
 
         if(listPayments[position]!!.created!=null && listPayments[position]!!.created!=""){
