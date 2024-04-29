@@ -11,7 +11,7 @@ import com.example.testapppayments.model.responsemodel.ResponsePayments
 
 class PaymentsAdapter: RecyclerView.Adapter<PaymentsAdapter.PaymentsViewHolder>() {
 
-    private var listPayments = emptyList<ResponsePayments?>()
+    private var listPayments = emptyList <ResponsePayments?> ()
 
     class PaymentsViewHolder(view:View):RecyclerView.ViewHolder(view)
 
@@ -50,9 +50,11 @@ class PaymentsAdapter: RecyclerView.Adapter<PaymentsAdapter.PaymentsViewHolder>(
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setList(list: List<ResponsePayments?>){
-        listPayments = list
-        notifyDataSetChanged()
+    fun setList(list: List<ResponsePayments?>?){
+        list?.let {
+            listPayments = it
+            notifyDataSetChanged()
+        }
     }
 
 }

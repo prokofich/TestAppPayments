@@ -15,11 +15,11 @@ interface ApiService {
     // функция получения платежей
     @Headers("app-key:12345","v:1")
     @GET("payments")
-    suspend fun getPayments(@Header("token") token: String):Response<ModelPaymentsData>
+    suspend fun getPayments(@Header("token") token : String) : Response <ModelPaymentsData>
 
     // функция получения токена
     @Headers("Content-type:application/json","app-key:12345","v:1")
     @POST("login")
-    suspend fun getTokenForInput(@Body loginData:ModelLoginData):Response<ModelTokenData>
+    suspend fun getTokenForInput(@Body loginData : ModelLoginData) : Response <ModelTokenData>
 
 }

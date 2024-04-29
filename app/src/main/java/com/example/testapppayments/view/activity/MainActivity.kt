@@ -10,13 +10,13 @@ import com.example.testapppayments.model.constant.MAIN
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
-    var navController: NavController? = null
+    private var binding : ActivityMainBinding? = null
+    var navController : NavController? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        val view = binding.root
+        val view = binding?.root
         setContentView(view)
 
         MAIN = this

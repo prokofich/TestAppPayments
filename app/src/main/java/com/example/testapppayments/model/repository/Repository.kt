@@ -13,27 +13,25 @@ import retrofit2.Response
 class Repository {
 
     // функция получения токена
-    suspend fun getTokenForInput(dataLoginData: ModelLoginData): Response<ModelTokenData> {
+    suspend fun getTokenForInput(dataLoginData : ModelLoginData) : Response <ModelTokenData> {
         return RetrofitInstance.api.getTokenForInput(dataLoginData)
     }
 
     // функция получения платежей
-    suspend fun getPayments(token:String):Response<ModelPaymentsData>{
+    suspend fun getPayments(token : String) : Response <ModelPaymentsData> {
         return RetrofitInstance.api.getPayments(token)
     }
 
     // функция сохранения токена
-    fun saveToken(token:String,context: Context){
-        val sharedPreferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-        sharedPreferences.edit()
-            .putString(TOKEN,token)
-            .apply()
+    fun saveToken(token : String? , context : Context) {
+        token?.let {
+            PreferenceManager.getDefaultSharedPreferences(context).edit().putString(TOKEN,it).apply()
+        }
     }
 
     // функция получения токена
-    fun getToken(context: Context):String{
-        val sharedPreferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-        return sharedPreferences.getString(TOKEN,"").toString()
+    fun getToken(context : Context) : String {
+        return PreferenceManager.getDefaultSharedPreferences(context).getString(TOKEN,"").toString()
     }
 
 }

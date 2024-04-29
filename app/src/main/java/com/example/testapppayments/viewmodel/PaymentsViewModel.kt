@@ -16,10 +16,10 @@ import retrofit2.Response
 class PaymentsViewModel:ViewModel() {
 
     private val repository = Repository()
-    val payments: MutableLiveData<Response<ModelPaymentsData>> = MutableLiveData()
+    val payments : MutableLiveData <Response <ModelPaymentsData> > = MutableLiveData()
 
     // функция получения платежей
-    fun getPayments(token:String){
+    fun getPayments(token : String) {
         viewModelScope.launch(Dispatchers.IO) {
             val response = repository.getPayments(token)
             withContext(Dispatchers.Main){
@@ -29,12 +29,10 @@ class PaymentsViewModel:ViewModel() {
     }
 
     // сохранение токена
-    private fun deleteToken(context: Context){
-        repository.saveToken("",context)
-    }
+    private fun deleteToken(context : Context) = repository.saveToken("",context)
 
     // функция показа диалогового сообщения о выходе
-    fun showExitDialog(context: Context) {
+    fun showExitDialog(context : Context) {
         val options = arrayOf("exit", "cancel")
         val builder = AlertDialog.Builder(context)
         builder.setTitle("do you want to get out?")

@@ -16,10 +16,10 @@ import com.example.testapppayments.viewmodel.PaymentsViewModel
 
 class PaymentsFragment : Fragment() {
 
-    private var binding:FragmentPaymentsBinding? = null
-    private var paymentsViewModel: PaymentsViewModel? = null
-    private var recyclerView: RecyclerView? = null
-    private var adapterPayments: PaymentsAdapter? = null
+    private var binding : FragmentPaymentsBinding? = null
+    private var paymentsViewModel : PaymentsViewModel? = null
+    private var recyclerView : RecyclerView? = null
+    private var adapterPayments : PaymentsAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,10 +38,10 @@ class PaymentsFragment : Fragment() {
         adapterPayments = PaymentsAdapter()
         recyclerView?.adapter = adapterPayments
 
-        paymentsViewModel?.getPayments(requireArguments().getString(TOKEN)!!) // отправка запроса на получение платежей
+        paymentsViewModel?.getPayments(requireArguments().getString(TOKEN).toString()) // отправка запроса на получение платежей
 
         // выход из аккаунта
-        binding!!.idPaymentsButtonExit.setOnClickListener {
+        binding?.idPaymentsButtonExit?.setOnClickListener {
             paymentsViewModel?.showExitDialog(requireContext())
         }
 
@@ -52,7 +52,7 @@ class PaymentsFragment : Fragment() {
 
         // отправка полученных платежей в recyclerview
         paymentsViewModel?.payments?.observe(viewLifecycleOwner){ data ->
-            adapterPayments?.setList(data.body()!!.response)
+            adapterPayments?.setList(data.body()?.response)
         }
 
     }

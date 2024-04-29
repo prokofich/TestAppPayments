@@ -13,8 +13,8 @@ import com.example.testapppayments.viewmodel.AuthorizationViewModel
 
 class AuthorizationFragment : Fragment() {
 
-    private var binding: FragmentAuthorizationBinding? = null
-    private var authViewModel:AuthorizationViewModel? = null
+    private var binding : FragmentAuthorizationBinding? = null
+    private var authViewModel : AuthorizationViewModel? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,19 +40,19 @@ class AuthorizationFragment : Fragment() {
 
         // обработка нажатия на кнопку отправки логина и пароля
         binding!!.idAuthButtonNext.setOnClickListener {
-            if(authViewModel?.checkLoginData(binding!!.idAuthEtLogin.text.toString(),binding!!.idAuthEtPassword.text.toString()) == true){
-                binding!!.idAuthPb.isIndeterminate = true // показ процесса загрузки
-                authViewModel?.sendDataLogin(binding!!.idAuthEtLogin.text.toString(),binding!!.idAuthEtPassword.text.toString())
+            if(authViewModel?.checkLoginData(binding?.idAuthEtLogin?.text.toString(),binding?.idAuthEtPassword?.text.toString()) == true){
+                binding?.idAuthPb?.isIndeterminate = true // показ процесса загрузки
+                authViewModel?.sendDataLogin(binding?.idAuthEtLogin?.text.toString(),binding?.idAuthEtPassword?.text.toString())
             }else{
                 authViewModel?.showToast(requireContext(),"Input fields must not be empty") // показ сообщения об ошибке
             }
         }
 
-        authViewModel?.token?.observe(viewLifecycleOwner){ data ->
+        authViewModel?.token?.observe(viewLifecycleOwner){
             binding!!.idAuthPb.isVisible = false // скрытие процесса загрузки
-            if(data.body()!!.success){
-                authViewModel?.saveToken(data.body()!!.response.token,requireContext()) // сохранение токена
-                authViewModel?.goToPaymentsFragment(data.body()!!.response.token) // переход к просмотру платежей
+            if(it.body()?.success == true){
+                authViewModel?.saveToken(it.body()?.response?.token,requireContext()) // сохранение токена
+                authViewModel?.goToPaymentsFragment(it.body()?.response?.token) // переход к просмотру платежей
             }else{
                 authViewModel?.showToast(requireContext(),"Incorrect login or password") // вывод сообщения об ошибке
             }
