@@ -16,7 +16,8 @@ import com.example.testapppayments.viewmodel.PaymentsViewModel
 
 class PaymentsFragment : Fragment() {
 
-    private var binding : FragmentPaymentsBinding? = null
+    private var _binding : FragmentPaymentsBinding? = null
+    private val binding get() = _binding!!
     private var paymentsViewModel : PaymentsViewModel? = null
     private var recyclerView : RecyclerView? = null
     private var adapterPayments : PaymentsAdapter? = null
@@ -24,9 +25,9 @@ class PaymentsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentPaymentsBinding.inflate(inflater,container,false)
-        return binding?.root
+    ): View {
+        _binding = FragmentPaymentsBinding.inflate(inflater,container,false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -38,29 +39,30 @@ class PaymentsFragment : Fragment() {
         adapterPayments = PaymentsAdapter()
         recyclerView?.adapter = adapterPayments
 
-        paymentsViewModel?.getPayments(requireArguments().getString(TOKEN).toString()) // отправка запроса на получение платежей
+        /** отправка запроса на получение платежей */
+        paymentsViewModel?.getPayments(requireArguments().getString(TOKEN).toString())
 
-        // выход из аккаунта
-        binding?.idPaymentsButtonExit?.setOnClickListener {
-            paymentsViewModel?.showExitDialog(requireContext())
+        /** выход из аккаунта */
+        binding.idPaymentsButtonExit.setOnClickListener {
+            paymentsViewModel?.showExitDialog()
         }
 
-        // выход из аккаунта
+        /** выход из аккаунта */
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner){
-            paymentsViewModel?.showExitDialog(requireContext())
+            paymentsViewModel?.showExitDialog()
         }
 
-        // отправка полученных платежей в recyclerview
+        /** отправка полученных платежей в recyclerview */
         paymentsViewModel?.payments?.observe(viewLifecycleOwner){ data ->
             adapterPayments?.setList(data.body()?.response)
         }
 
     }
 
-    // очистка биндинга при очистке View
+    /** очистка биндинга при очистке View */
     override fun onDestroyView() {
+        _binding = null
         super.onDestroyView()
-        binding = null
     }
 
 }

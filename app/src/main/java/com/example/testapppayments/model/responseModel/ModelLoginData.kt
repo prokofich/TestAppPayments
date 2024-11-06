@@ -1,4 +1,4 @@
-package com.example.testapppayments.model.responsemodel
+package com.example.testapppayments.model.responseModel
 
 import com.google.gson.annotations.SerializedName
 

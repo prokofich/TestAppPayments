@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testapppayments.R
-import com.example.testapppayments.model.responsemodel.ResponsePayments
+import com.example.testapppayments.model.responseModel.ResponsePayments
 
 class PaymentsAdapter: RecyclerView.Adapter<PaymentsAdapter.PaymentsViewHolder>() {
 

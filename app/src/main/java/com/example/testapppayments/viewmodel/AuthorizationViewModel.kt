@@ -1,35 +1,37 @@
 package com.example.testapppayments.viewmodel
 
 import android.app.AlertDialog
-import android.content.Context
+import android.app.Application
 import android.os.Bundle
 import android.widget.Toast
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.testapppayments.R
 import com.example.testapppayments.model.constant.MAIN
 import com.example.testapppayments.model.constant.TOKEN
 import com.example.testapppayments.model.repository.Repository
-import com.example.testapppayments.model.responsemodel.ModelLoginData
-import com.example.testapppayments.model.responsemodel.ModelTokenData
+import com.example.testapppayments.model.responseModel.ModelLoginData
+import com.example.testapppayments.model.responseModel.ModelTokenData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.Response
 
-class AuthorizationViewModel : ViewModel() {
+class AuthorizationViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val repository = Repository()
-    val token : MutableLiveData <Response <ModelTokenData> > = MutableLiveData()
+    private val repository = Repository(application)
+    val token: MutableLiveData<Response<ModelTokenData>> = MutableLiveData()
 
-    // функция проверки ввода логина и пароля
-    fun checkLoginData(login : String , password : String) : Boolean = login.isNotEmpty() && password.isNotEmpty()
+    /** переход на экран платежей */
+    var navToPaymentsFragment: ((Bundle) -> Unit)? = null
 
-    // функция отправки пароля и логина на сервер для получения токена
-    fun sendDataLogin(login : String? , password : String?){
+    /** функция проверки ввода логина и пароля */
+    fun checkLoginData(login: String, password: String): Boolean = login.isNotEmpty() && password.isNotEmpty()
+
+    /** функция отправки пароля и логина на сервер для получения токена */
+    fun sendDataLogin(login: String?, password: String?){
         if(login != null && password != null){
-            val dataLogin = ModelLoginData(login , password)
+            val dataLogin = ModelLoginData(login, password)
             viewModelScope.launch(Dispatchers.IO) {
                 val response = repository.getTokenForInput(dataLogin)
                 withContext(Dispatchers.Main){
@@ -39,30 +41,30 @@ class AuthorizationViewModel : ViewModel() {
         }
     }
 
-    // функция показа всплывающего сообщения
-    fun showToast(context : Context , message : String) = Toast.makeText(context,message,Toast.LENGTH_SHORT).show()
+    /** функция показа всплывающего сообщения */
+    fun showToast(message: String) = Toast.makeText(getApplication(),message,Toast.LENGTH_SHORT).show()
 
-    // функция перехода к следующему фрагменту(просмотру платежей)
-    fun goToPaymentsFragment(token : String?) {
+    /** функция перехода к следующему фрагменту (просмотру платежей) */
+    fun goToPaymentsFragment(token: String?) {
         token?.let {
             val bundle = Bundle()
-            bundle.putString(TOKEN , it)
-            MAIN.navController?.navigate(R.id.action_authorizationFragment_to_paymentsFragment,bundle)
+            bundle.putString(TOKEN, it)
+            navToPaymentsFragment?.invoke(bundle)
         }
     }
 
-    // проверка был ли выход из аккаунта
-    fun checkLogout(context : Context) {
-        if(repository.getToken(context).isNotEmpty()) goToPaymentsFragment(repository.getToken(context))
+    /** проверка был ли выход из аккаунта */
+    fun checkLogout() {
+        if(repository.getToken().isNotEmpty()) goToPaymentsFragment(repository.getToken())
     }
 
-    // сохранение токена
-    fun saveToken(token : String? , context : Context) = repository.saveToken(token , context)
+    /** сохранение токена */
+    fun saveToken(token: String?) = repository.saveToken(token)
 
     // функция показа диалогового сообщения о выходе
-    fun showExitDialog(context : Context) {
+    fun showExitDialog() {
         val options = arrayOf("exit", "cancel")
-        val builder = AlertDialog.Builder(context)
+        val builder = AlertDialog.Builder(getApplication())
         builder.setTitle("do you want to get out?")
         builder.setItems(options) { dialog, which ->
             when (which) {

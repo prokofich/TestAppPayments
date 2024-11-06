@@ -11,7 +11,6 @@ import com.example.testapppayments.model.constant.MAIN
 class MainActivity : AppCompatActivity() {
 
     private var binding : ActivityMainBinding? = null
-    var navController : NavController? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,7 +19,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(view)
 
         MAIN = this
-        navController = Navigation.findNavController(this, R.id.id_nav_host)
 
     }
 

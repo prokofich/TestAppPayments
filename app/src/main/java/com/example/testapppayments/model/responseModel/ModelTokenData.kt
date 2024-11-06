@@ -1,4 +1,4 @@
-package com.example.testapppayments.model.responsemodel
+package com.example.testapppayments.model.responseModel
 
 data class ModelTokenData(
     val response: Response,
